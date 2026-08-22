@@ -4,3 +4,4 @@ __pycache__/
 *.py[cod]
 *.pdf
 .DS_Store
+.idea/
