@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "build-llms-from-scratch-companion"
 version = "0.1.0"
@@ -11,8 +15,21 @@ dependencies = [
     "torch>=2.13.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/majorgilles/build-llms-from-scratch-companion"
+
 [dependency-groups]
-dev = ["ruff>=0.12"]
+dev = [
+    "nbdev>=3.3.12",
+    "ruff>=0.12",
+]
+
+[tool.setuptools.packages.find]
+include = ["build_llms_from_scratch_companion*"]
+
+[tool.nbdev]
+nbs_path = "notebooks"
+lib_path = "build_llms_from_scratch_companion"
 
 [tool.ruff]
 line-length = 100
@@ -20,3 +37,7 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["B", "E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"build_llms_from_scratch_companion/_modidx.py" = ["E501"]
+"build_llms_from_scratch_companion/attention.py" = ["I001"]
