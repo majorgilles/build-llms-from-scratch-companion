@@ -9,7 +9,12 @@ from torch import nn
 
 # %% ../notebooks/03-coding-attention-mechanisms.ipynb #b8791648b2c4dc65
 class MultiHeadAttention(nn.Module):
-    """Compute batched causal self-attention with multiple parallel heads."""
+    """Compute causal multi-head attention with configurable input/output widths.
+
+    This educational class maps `(B, T, d_in)` to `(B, T, d_out)`. To match
+    the Transformer paper's residual-stream contract, construct it with
+    `d_in == d_out == d_model`.
+    """
 
     def __init__(
         self,
@@ -33,7 +38,8 @@ class MultiHeadAttention(nn.Module):
         self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
-        # Mix information across concatenated heads without changing width.
+        # This educational version preserves d_out, not necessarily d_in.
+        # In the paper, W_O maps concatenated heads back to d_model.
         self.out_proj = nn.Linear(d_out, d_out)
         self.dropout = nn.Dropout(dropout)
         self.register_buffer(
@@ -46,7 +52,11 @@ class MultiHeadAttention(nn.Module):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Map `(batch, tokens, d_in)` to `(batch, tokens, d_out)`."""
+        """Map `(batch, tokens, d_in)` to `(batch, tokens, d_out)`.
+
+        Residual addition requires `d_out == d_in`; GPT-style usage sets both
+        dimensions to `d_model`.
+        """
         # x: (batch, num_tokens, d_in)
         b, num_tokens, d_in = x.shape
 
