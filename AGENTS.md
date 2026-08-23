@@ -18,6 +18,7 @@ These guidelines apply to this repository unless a more specific `AGENTS.md` exi
 - Keep examples beginner-readable and split distinct concepts into focused cells.
 - Add concise comments that explain intent or non-obvious behavior rather than restating syntax.
 - Add a nearby Markdown cell for each new concept, explaining its purpose, inputs, outputs, and connection to the next step.
+- Let each notebook read as one continuous chapter. Do not insert repetitive checkpoint cells between sections; consolidate takeaways into one chapter summary Markdown cell at the end.
 - Keep Markdown, comments, type annotations, and executable code synchronized.
 - Treat `glossary.md` as the source of truth for terminology and identifiers used in generated code, comments, docstrings, and Markdown. Update the glossary before introducing a new synonym for an existing concept.
 - Reuse established terminology and variable names across notebooks; do not rename the same concept from chapter to chapter without a documented semantic reason.
