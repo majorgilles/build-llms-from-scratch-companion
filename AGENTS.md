@@ -19,5 +19,8 @@ These guidelines apply to this repository unless a more specific `AGENTS.md` exi
 - Add concise comments that explain intent or non-obvious behavior rather than restating syntax.
 - Add a nearby Markdown cell for each new concept, explaining its purpose, inputs, outputs, and connection to the next step.
 - Keep Markdown, comments, type annotations, and executable code synchronized.
+- Treat `glossary.md` as the source of truth for terminology and identifiers used in generated code, comments, docstrings, and Markdown. Update the glossary before introducing a new synonym for an existing concept.
+- Reuse established terminology and variable names across notebooks; do not rename the same concept from chapter to chapter without a documented semantic reason.
+- Use `num_tokens` for the current sequence-length dimension in model and attention tensors. Reserve `context_length` for the configured maximum supported sequence length; do not use `seq_len` or `sql_len` for `num_tokens`.
 - When a request is documentation- or typing-only, do not change executable behavior.
 - Validate notebook JSON and Python code-cell syntax after editing.

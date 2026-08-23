@@ -15,6 +15,10 @@ uv sync
 uv run jupyter lab
 ```
 
+## Shared terminology
+
+Generated notebook code and documentation follow the canonical vocabulary in [`glossary.md`](glossary.md).
+
 ## Reusing notebook-defined code
 
 This repository uses [nbdev](https://nbdev.fast.ai/) to keep notebooks as the source of truth while exporting selected cells as importable Python modules.
