@@ -46,4 +46,6 @@ d = { 'settings': { 'branch': 'main',
                                                          'build_llms_from_scratch_companion.model.TransformerBlock.__init__': ( '04-implementing-a-gpt-model.html#transformerblock.__init__',
                                                                                                                                 'build_llms_from_scratch_companion/model.py'),
                                                          'build_llms_from_scratch_companion.model.TransformerBlock.forward': ( '04-implementing-a-gpt-model.html#transformerblock.forward',
-                                                                                                                               'build_llms_from_scratch_companion/model.py')}}}
+                                                                                                                               'build_llms_from_scratch_companion/model.py'),
+                                                         'build_llms_from_scratch_companion.model.generate_text_simple': ( '04-implementing-a-gpt-model.html#generate_text_simple',
+                                                                                                                           'build_llms_from_scratch_companion/model.py')}}}

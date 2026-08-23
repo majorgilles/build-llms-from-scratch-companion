@@ -12,6 +12,7 @@ These guidelines apply to this repository unless a more specific `AGENTS.md` exi
 - Do not annotate obvious local variables when their type is directly inferable from the assigned value.
 - Avoid `Any` unless a third-party boundary genuinely has no useful type information.
 - Keep annotations beginner-readable; introduce `Protocol`, `TypeVar`, or complex aliases only when they provide clear value.
+- Write Python docstrings in Google style, including `Args:`, `Returns:`, and `Raises:` sections when applicable.
 
 ## Learning notebooks
 
