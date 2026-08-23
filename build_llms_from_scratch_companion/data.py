@@ -10,7 +10,11 @@ from torch.utils.data import DataLoader, Dataset
 
 
 class GPTDatasetV1(Dataset):
-    """Create overlapping input-target token windows from a text corpus."""
+    """Create overlapping input-target token windows from a text corpus.
+
+    Each dataset item contains two tensors shaped `(max_length,)`. A data
+    loader stacks those items into `(batch_size, max_length)` batches.
+    """
 
     def __init__(
         self,
@@ -27,17 +31,21 @@ class GPTDatasetV1(Dataset):
             max_length: Number of token IDs in each input and target window.
             stride: Number of token positions between consecutive window starts.
         """
+        # Each list item will be a one-dimensional tensor shaped (max_length,).
         # Empty collections need annotations because their item type is not inferable.
         self.input_ids: list[torch.Tensor] = []
         self.target_ids: list[torch.Tensor] = []
 
+        # token_ids: (num_tokens,) represented as a Python list of integers
         token_ids = tokenizer.encode(txt)
 
         # Stride is the range step: windows start at 0, stride, 2 * stride, and so on.
         for i in range(0, len(token_ids) - max_length, stride):
+            # input_chunk: (max_length,) represented as a Python list
             input_chunk = token_ids[i : i + max_length]
-            # The separate +1 shift creates next-token targets within this window.
+            # target_chunk: (max_length,), shifted one token beyond input_chunk
             target_chunk = token_ids[i + 1 : i + max_length + 1]
+            # Each conversion stores one tensor shaped (max_length,).
             self.input_ids.append(torch.tensor(input_chunk))
             self.target_ids.append(torch.tensor(target_chunk))
 
@@ -58,6 +66,7 @@ class GPTDatasetV1(Dataset):
         Returns:
             Input and target token IDs, each shaped `(max_length,)`.
         """
+        # input_ids and target_ids: (max_length,)
         return self.input_ids[idx], self.target_ids[idx]
 
 # %% ../notebooks/02-working-with-text-data.ipynb #2602395bc437d4e8

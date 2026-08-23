@@ -15,6 +15,15 @@ uv sync
 uv run jupyter lab
 ```
 
+### CUDA-enabled PyTorch
+
+`pyproject.toml` resolves PyTorch from the official CUDA 13.0 (`cu130`) wheel index. `uv sync` therefore installs the GPU-enabled build
+on supported Windows and Linux systems. Verify the active environment with:
+
+```bash
+uv run python -c "import torch; print(torch.__version__, torch.cuda.is_available(), torch.cuda.get_device_name(0))"
+```
+
 ## Shared terminology
 
 Generated notebook code and documentation follow the canonical vocabulary in [`glossary.md`](glossary.md).
