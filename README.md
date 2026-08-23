@@ -33,6 +33,7 @@ Other notebooks can then import reusable classes without executing their source 
 
 ```python
 from build_llms_from_scratch_companion.attention import MultiHeadAttention
+from build_llms_from_scratch_companion.data import create_dataloader_v1
 from build_llms_from_scratch_companion.generation import generate_text_simple
 from build_llms_from_scratch_companion.model import GPTConfig, GPTModel, TransformerBlock
 ```
