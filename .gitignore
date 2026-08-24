@@ -9,3 +9,6 @@ __pycache__/
 data/
 checkpoints/
 *.pth
+
+# Downloaded OpenAI GPT-2 model weights and tokenizer assets
+notebooks/gpt2/
