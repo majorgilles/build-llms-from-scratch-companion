@@ -47,6 +47,8 @@ This file is the source of truth for terminology and identifiers used in generat
 | Logits | `logits` | Unnormalized vocabulary scores with shape `(batch_size, num_tokens, vocab_size)` |
 | Probabilities | `probas` | Normalized values produced by softmax; sum to one across `vocab_size` |
 | Sampling temperature | `temperature` | Positive scalar that controls how sharp or flat a probability distribution is before sampling |
+| Top-k cutoff | `top_k` | Number of highest-logit vocabulary candidates retained before sampling |
+| End-of-sequence token ID | `eos_id` | Optional token ID that signals generation should stop |
 | Next-token prediction | — | Prediction made at each input position for the token immediately following that position |
 
 ## Configuration terms
