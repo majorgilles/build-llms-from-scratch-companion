@@ -45,6 +45,8 @@ This file is the source of truth for terminology and identifiers used in generat
 | Canonical term | Identifier | Meaning |
 |---|---|---|
 | Logits | `logits` | Unnormalized vocabulary scores with shape `(batch_size, num_tokens, vocab_size)` |
+| Probabilities | `probas` | Normalized values produced by softmax; sum to one across `vocab_size` |
+| Sampling temperature | `temperature` | Positive scalar that controls how sharp or flat a probability distribution is before sampling |
 | Next-token prediction | — | Prediction made at each input position for the token immediately following that position |
 
 ## Configuration terms
