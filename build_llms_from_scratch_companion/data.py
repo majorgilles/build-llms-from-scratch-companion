@@ -36,8 +36,12 @@ class GPTDatasetV1(Dataset):
         self.input_ids: list[torch.Tensor] = []
         self.target_ids: list[torch.Tensor] = []
 
+        # Encode document separators as the dedicated GPT-2 end-of-text token.
         # token_ids: (num_tokens,) represented as a Python list of integers
-        token_ids = tokenizer.encode(txt)
+        token_ids = tokenizer.encode(
+            txt,
+            allowed_special={"<|endoftext|>"},
+        )
 
         # Stride is the range step: windows start at 0, stride, 2 * stride, and so on.
         for i in range(0, len(token_ids) - max_length, stride):

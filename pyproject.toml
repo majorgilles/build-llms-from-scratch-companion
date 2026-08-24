@@ -9,6 +9,7 @@ description = "Private follow-along workspace for Build a Large Language Model (
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "datasets>=4.0",
     "jupyterlab>=4.4",
     "matplotlib>=3.11.1",
     "pydantic>=2.13.4",
@@ -53,3 +54,4 @@ select = ["B", "E", "F", "I", "UP"]
 "build_llms_from_scratch_companion/attention.py" = ["I001"]
 "build_llms_from_scratch_companion/model.py" = ["E501", "I001"]
 "build_llms_from_scratch_companion/generation.py" = ["I001"]
+"build_llms_from_scratch_companion/training.py" = ["E501", "I001"]

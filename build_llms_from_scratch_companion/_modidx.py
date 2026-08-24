@@ -125,5 +125,39 @@ d = {
                 "build_llms_from_scratch_companion/model.py",
             ),
         },
+        "build_llms_from_scratch_companion.training": {
+            "build_llms_from_scratch_companion.training.calc_loss_batch": (
+                "05-pretraining-on-unlabeled-data.html#calc_loss_batch",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.calc_loss_loader": (
+                "05-pretraining-on-unlabeled-data.html#calc_loss_loader",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.evaluate_model": (
+                "05-pretraining-on-unlabeled-data.html#evaluate_model",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.generate_and_print_sample": (
+                "05-pretraining-on-unlabeled-data.html#generate_and_print_sample",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.plot_losses": (
+                "05-pretraining-on-unlabeled-data.html#plot_losses",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.text_to_token_ids": (
+                "05-pretraining-on-unlabeled-data.html#text_to_token_ids",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.token_ids_to_text": (
+                "05-pretraining-on-unlabeled-data.html#token_ids_to_text",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.train_model_simple": (
+                "05-pretraining-on-unlabeled-data.html#train_model_simple",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+        },
     },
 }
