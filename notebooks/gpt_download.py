@@ -4,11 +4,11 @@
 # Code: https://github.com/rasbt/LLMs-from-scratch
 
 
+import json
 import os
 
-import requests
-import json
 import numpy as np
+import requests
 import tensorflow as tf
 from tqdm import tqdm
 
@@ -24,9 +24,13 @@ def download_and_load_gpt2(model_size, models_dir):
     base_url = "https://openaipublic.blob.core.windows.net/gpt-2/models"
     backup_base_url = "https://f001.backblazeb2.com/file/LLMs-from-scratch/gpt2"
     filenames = [
-        "checkpoint", "encoder.json", "hparams.json",
-        "model.ckpt.data-00000-of-00001", "model.ckpt.index",
-        "model.ckpt.meta", "vocab.bpe"
+        "checkpoint",
+        "encoder.json",
+        "hparams.json",
+        "model.ckpt.data-00000-of-00001",
+        "model.ckpt.index",
+        "model.ckpt.meta",
+        "vocab.bpe",
     ]
 
     # Download files
@@ -39,7 +43,7 @@ def download_and_load_gpt2(model_size, models_dir):
 
     # Load settings and params
     tf_ckpt_path = tf.train.latest_checkpoint(model_dir)
-    settings = json.load(open(os.path.join(model_dir, "hparams.json"), "r", encoding="utf-8"))
+    settings = json.load(open(os.path.join(model_dir, "hparams.json"), encoding="utf-8"))
     params = load_gpt2_params_from_tf_ckpt(tf_ckpt_path, settings)
 
     return settings, params
