@@ -116,8 +116,8 @@ def download_file(url, destination):
     block_size = 1024  # 1 Kilobyte
 
     # Initialize the progress bar with total file size
-    progress_bar_description = url.split("/")[-1]  # Extract filename from URL
-    with tqdm(total=file_size, unit="iB", unit_scale=True, desc=progress_bar_description) as progress_bar:
+    desc = url.split("/")[-1]  # Extract filename from URL
+    with tqdm(total=file_size, unit="iB", unit_scale=True, desc=desc) as progress_bar:
         # Open the destination file in binary write mode
         with open(destination, "wb") as file:
             # Iterate over the file data in chunks

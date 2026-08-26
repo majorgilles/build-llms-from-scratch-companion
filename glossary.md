@@ -51,6 +51,15 @@ This file is the source of truth for terminology and identifiers used in generat
 | End-of-sequence token ID | `eos_id` | Optional token ID that signals generation should stop |
 | Next-token prediction | — | Prediction made at each input position for the token immediately following that position |
 
+## Classification data
+
+| Canonical term | Identifier | Meaning |
+|---|---|---|
+| Text message | `text` | Input string classified by the model |
+| Class label | `label` | Integer target associated with one input example |
+| Ham | `0` | Legitimate message in the SMS Spam Collection |
+| Spam | `1` | Unwanted message in the SMS Spam Collection |
+
 ## Configuration terms
 
 - Use `GPTConfig` for the validated Pydantic architecture configuration.
