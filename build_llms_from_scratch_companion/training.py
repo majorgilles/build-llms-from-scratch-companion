@@ -10,10 +10,15 @@ __all__ = [
     "generate_and_print_sample",
     "train_model_simple",
     "plot_losses",
+    "assign",
+    "load_weights_into_gpt",
 ]
 
 # %% ../notebooks/05-pretraining-on-unlabeled-data.ipynb #nbdev-export-training-imports
+from typing import Any
+
 import matplotlib.pyplot as plt
+import numpy as np
 import tiktoken
 import torch
 from matplotlib.ticker import MaxNLocator
@@ -325,3 +330,127 @@ def plot_losses(
     ax2.set_xlabel("Tokens seen")
     fig.tight_layout()
     plt.show()
+
+
+# %% ../notebooks/05-pretraining-on-unlabeled-data.ipynb #8510ba5f001a0ae6
+def assign(
+    left: torch.Tensor,
+    right: np.ndarray,
+) -> torch.nn.Parameter:
+    """Convert a NumPy weight array into a shape-compatible parameter.
+
+    Args:
+        left: Existing PyTorch parameter whose shape defines the contract.
+        right: OpenAI checkpoint array containing replacement values.
+
+    Returns:
+        Trainable PyTorch parameter initialized from `right`.
+
+    Raises:
+        ValueError: If the existing parameter and checkpoint array shapes differ.
+    """
+    if left.shape != right.shape:
+        raise ValueError(f"Shape mismatch. Left: {left.shape}, Right: {right.shape}")
+    # torch.tensor copies the NumPy values into independent PyTorch storage.
+    return torch.nn.Parameter(torch.tensor(right))
+
+
+# %% ../notebooks/05-pretraining-on-unlabeled-data.ipynb #3f61eb147f324dd2
+def load_weights_into_gpt(
+    gpt: GPTModel,
+    params: dict[str, Any],
+) -> None:
+    """Copy converted OpenAI GPT-2 arrays into the local PyTorch model.
+
+    Args:
+        gpt: Local model whose architecture matches the OpenAI checkpoint.
+        params: Nested checkpoint arrays returned by
+            `download_and_load_gpt2`.
+
+    Returns:
+        None. The function replaces `gpt` parameters in place.
+
+    Raises:
+        ValueError: If any checkpoint array has an incompatible shape.
+    """
+    # Embedding tables: (context_length, emb_dim) and (vocab_size, emb_dim)
+    gpt.pos_emb.weight = assign(gpt.pos_emb.weight, params["wpe"])
+    gpt.tok_emb.weight = assign(gpt.tok_emb.weight, params["wte"])
+
+    for block_index in range(len(params["blocks"])):
+        block_params = params["blocks"][block_index]
+
+        # OpenAI concatenates Q, K, and V along the final dimension.
+        q_w, k_w, v_w = np.split(
+            block_params["attn"]["c_attn"]["w"],
+            3,
+            axis=-1,
+        )
+        # TensorFlow dense weights are (in_features, out_features), whereas
+        # PyTorch Linear weights are (out_features, in_features).
+        attention = gpt.trf_blocks[block_index].att
+        attention.W_query.weight = assign(attention.W_query.weight, q_w.T)
+        attention.W_key.weight = assign(attention.W_key.weight, k_w.T)
+        attention.W_value.weight = assign(attention.W_value.weight, v_w.T)
+
+        # Bias vectors already use the same (emb_dim,) orientation.
+        q_b, k_b, v_b = np.split(
+            block_params["attn"]["c_attn"]["b"],
+            3,
+            axis=-1,
+        )
+        attention.W_query.bias = assign(attention.W_query.bias, q_b)
+        attention.W_key.bias = assign(attention.W_key.bias, k_b)
+        attention.W_value.bias = assign(attention.W_value.bias, v_b)
+
+        attention.out_proj.weight = assign(
+            attention.out_proj.weight,
+            block_params["attn"]["c_proj"]["w"].T,
+        )
+        attention.out_proj.bias = assign(
+            attention.out_proj.bias,
+            block_params["attn"]["c_proj"]["b"],
+        )
+
+        # The feed-forward expansion and contraction matrices also transpose.
+        feed_forward = gpt.trf_blocks[block_index].ff
+        feed_forward.layers[0].weight = assign(
+            feed_forward.layers[0].weight,
+            block_params["mlp"]["c_fc"]["w"].T,
+        )
+        feed_forward.layers[0].bias = assign(
+            feed_forward.layers[0].bias,
+            block_params["mlp"]["c_fc"]["b"],
+        )
+        feed_forward.layers[2].weight = assign(
+            feed_forward.layers[2].weight,
+            block_params["mlp"]["c_proj"]["w"].T,
+        )
+        feed_forward.layers[2].bias = assign(
+            feed_forward.layers[2].bias,
+            block_params["mlp"]["c_proj"]["b"],
+        )
+
+        # Layer-normalization scale and shift vectors: (emb_dim,)
+        transformer_block = gpt.trf_blocks[block_index]
+        transformer_block.norm1.scale = assign(
+            transformer_block.norm1.scale,
+            block_params["ln_1"]["g"],
+        )
+        transformer_block.norm1.shift = assign(
+            transformer_block.norm1.shift,
+            block_params["ln_1"]["b"],
+        )
+        transformer_block.norm2.scale = assign(
+            transformer_block.norm2.scale,
+            block_params["ln_2"]["g"],
+        )
+        transformer_block.norm2.shift = assign(
+            transformer_block.norm2.shift,
+            block_params["ln_2"]["b"],
+        )
+
+    # Apply final normalization and initialize output logits from token embeddings.
+    gpt.final_norm.scale = assign(gpt.final_norm.scale, params["g"])
+    gpt.final_norm.shift = assign(gpt.final_norm.shift, params["b"])
+    gpt.out_head.weight = assign(gpt.out_head.weight, params["wte"])

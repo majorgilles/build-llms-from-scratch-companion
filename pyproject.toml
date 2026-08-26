@@ -13,6 +13,7 @@ dependencies = [
     "ipywidgets>=8.1.9",
     "jupyterlab>=4.4",
     "matplotlib>=3.11.1",
+    "numpy>=2.0",
     "pandas-stubs~=3.0.5",
     "pydantic>=2.13.4",
     "ruff>=0.16.3",

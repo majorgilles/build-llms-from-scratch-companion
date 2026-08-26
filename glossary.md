@@ -59,6 +59,9 @@ This file is the source of truth for terminology and identifiers used in generat
 | Class label | `label` | Integer target associated with one input example |
 | Ham | `0` | Legitimate message in the SMS Spam Collection |
 | Spam | `1` | Unwanted message in the SMS Spam Collection |
+| Encoded messages | `encoded_texts` | Token-ID lists produced from the text-message column |
+| Padded input length | `max_length` | Fixed number of token IDs retained or padded for each classification example; must not exceed `context_length` |
+| Padding token ID | `pad_token_id` | Token ID appended until each classification input reaches `max_length` |
 
 ## Configuration terms
 

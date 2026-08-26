@@ -126,6 +126,10 @@ d = {
             ),
         },
         "build_llms_from_scratch_companion.training": {
+            "build_llms_from_scratch_companion.training.assign": (
+                "05-pretraining-on-unlabeled-data.html#assign",
+                "build_llms_from_scratch_companion/training.py",
+            ),
             "build_llms_from_scratch_companion.training.calc_loss_batch": (
                 "05-pretraining-on-unlabeled-data.html#calc_loss_batch",
                 "build_llms_from_scratch_companion/training.py",
@@ -140,6 +144,10 @@ d = {
             ),
             "build_llms_from_scratch_companion.training.generate_and_print_sample": (
                 "05-pretraining-on-unlabeled-data.html#generate_and_print_sample",
+                "build_llms_from_scratch_companion/training.py",
+            ),
+            "build_llms_from_scratch_companion.training.load_weights_into_gpt": (
+                "05-pretraining-on-unlabeled-data.html#load_weights_into_gpt",
                 "build_llms_from_scratch_companion/training.py",
             ),
             "build_llms_from_scratch_companion.training.plot_losses": (
