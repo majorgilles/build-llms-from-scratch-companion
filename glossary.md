@@ -62,6 +62,9 @@ This file is the source of truth for terminology and identifiers used in generat
 | Encoded messages | `encoded_texts` | Token-ID lists produced from the text-message column |
 | Padded input length | `max_length` | Fixed number of token IDs retained or padded for each classification example; must not exceed `context_length` |
 | Padding token ID | `pad_token_id` | Token ID appended until each classification input reaches `max_length` |
+| Number of classes | `num_classes` | Count of mutually exclusive classification targets; `2` for ham and spam |
+| Class logits | `logits` | Unnormalized class scores shaped `(batch_size, num_tokens, num_classes)` |
+| Last-position class logits | `last_token_logits` | Class scores read from the final input position, shaped `(batch_size, num_classes)` |
 
 ## Configuration terms
 
