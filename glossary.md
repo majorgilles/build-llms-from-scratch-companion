@@ -27,6 +27,11 @@ This file is the source of truth for terminology and identifiers used in generat
 | Target IDs | `target_ids` | Input IDs shifted by one position for next-token prediction |
 | Inputs | `inputs` | Batched model inputs when the exact representation is clear from context |
 | Targets | `targets` | Batched expected next-token IDs |
+| Epoch | `epoch` | One complete traversal of the training loader |
+| Global optimizer step | `global_step` | Number identifying one parameter-update step across epoch boundaries |
+| Examples seen | `examples_seen` | Training examples processed by optimizer steps, including repeats across epochs |
+| Evaluation frequency | `eval_freq` | Optimizer-step interval between loss evaluations |
+| Evaluation batches | `eval_iter` | Maximum loader batches sampled during one quick evaluation |
 
 ## Attention
 
@@ -65,6 +70,9 @@ This file is the source of truth for terminology and identifiers used in generat
 | Number of classes | `num_classes` | Count of mutually exclusive classification targets; `2` for ham and spam |
 | Class logits | `logits` | Unnormalized class scores shaped `(batch_size, num_tokens, num_classes)` |
 | Last-position class logits | `last_token_logits` | Class scores read from the final input position, shaped `(batch_size, num_classes)` |
+| Predicted class labels | `predicted_labels` | Highest-logit class ID for each example, shaped `(batch_size,)` |
+| Classification accuracy | `accuracy` | Fraction of evaluated examples whose predicted and target labels match |
+| Classification loss | `loss` | Mean cross-entropy between final-position class logits and target labels |
 
 ## Configuration terms
 
