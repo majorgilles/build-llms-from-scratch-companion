@@ -42,6 +42,10 @@ This file is the source of truth for terminology and identifiers used in generat
 | Desired response | `output` | Reference answer used as the supervised continuation |
 | Formatted model input | `model_input` | Alpaca-style instruction and optional input presented before the response |
 | Desired response text | `desired_response` | Response header plus reference output appended during supervised training |
+| Response continuation | `response_text` | Response header plus desired output added after the formatted model input |
+| Full instruction example | `full_text` | Formatted model input concatenated with its supervised response continuation |
+| Batch maximum length | `batch_max_length` | Longest encoded example in the current batch plus one end-of-text target position |
+| Ignore index | `ignore_index` | Target value, conventionally `-100`, excluded from cross-entropy loss |
 
 ## Attention
 
@@ -74,7 +78,7 @@ This file is the source of truth for terminology and identifiers used in generat
 | Class label | `label` | Integer target associated with one input example |
 | Ham | `0` | Legitimate message in the SMS Spam Collection |
 | Spam | `1` | Unwanted message in the SMS Spam Collection |
-| Encoded messages | `encoded_texts` | Token-ID lists produced from the text-message column |
+| Encoded texts | `encoded_texts` | Token-ID lists produced from raw or formatted text examples |
 | Padded input length | `max_length` | Fixed number of token IDs retained or padded for each classification example; must not exceed `context_length` |
 | Padding token ID | `pad_token_id` | Token ID appended until each classification input reaches `max_length` |
 | Number of classes | `num_classes` | Count of mutually exclusive classification targets; `2` for ham and spam |
