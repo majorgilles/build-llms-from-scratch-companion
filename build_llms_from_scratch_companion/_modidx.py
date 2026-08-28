@@ -142,6 +142,10 @@ d = {
                 "05-pretraining-on-unlabeled-data.html#evaluate_model",
                 "build_llms_from_scratch_companion/training.py",
             ),
+            "build_llms_from_scratch_companion.training.generate": (
+                "05-pretraining-on-unlabeled-data.html#generate",
+                "build_llms_from_scratch_companion/training.py",
+            ),
             "build_llms_from_scratch_companion.training.generate_and_print_sample": (
                 "05-pretraining-on-unlabeled-data.html#generate_and_print_sample",
                 "build_llms_from_scratch_companion/training.py",
