@@ -33,6 +33,16 @@ This file is the source of truth for terminology and identifiers used in generat
 | Evaluation frequency | `eval_freq` | Optimizer-step interval between loss evaluations |
 | Evaluation batches | `eval_iter` | Maximum loader batches sampled during one quick evaluation |
 
+## Instruction data
+
+| Canonical term | Identifier | Meaning |
+|---|---|---|
+| Instruction | `instruction` | Natural-language description of the task to perform |
+| Optional task input | `input` | Additional text needed to complete an instruction; may be empty |
+| Desired response | `output` | Reference answer used as the supervised continuation |
+| Formatted model input | `model_input` | Alpaca-style instruction and optional input presented before the response |
+| Desired response text | `desired_response` | Response header plus reference output appended during supervised training |
+
 ## Attention
 
 | Canonical term | Identifier | Meaning |
