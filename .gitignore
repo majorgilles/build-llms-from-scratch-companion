@@ -12,3 +12,6 @@ checkpoints/
 
 # Downloaded OpenAI GPT-2 model weights and tokenizer assets
 notebooks/gpt2/
+
+# Generated instruction-evaluation responses
+notebooks/instruction-data-with-response.json
